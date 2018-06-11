@@ -1,0 +1,74 @@
+
+@import '../../common/style/common.less';
+
+@width : 60px;
+@height: 34px;
+
+.c-switch {
+    position: relative;
+    display: inline-block;
+    width: @width;
+    height: @height;
+    
+    input {
+      display: none;
+    }
+    .c-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: @disable-color;
+      border-radius: @height;
+      &:before {
+        position: absolute;
+        content: '';
+        background-color: #fff;
+        width: @height - 8;
+        height: @height - 8;
+        border-radius: @height - 8;
+        top: 4px;
+        left: 4px;
+        transition: .4s;
+        -moz-transition: .4s; /* Firefox 4 */
+        -webkit-transition: .4s; /* Safari and Chrome */
+        -o-transition: .4s; /* Opera */
+      }
+      
+    }
+    .c-slider-text {
+      position: absolute;
+      color: #fff;
+      font-size: 14px;
+      top: 8px;
+    }
+    .c-slider-left-text {
+      .c-slider-text;
+      left: 10px;
+    }
+    .c-slider-right-text {
+      .c-slider-text;
+      right: 10px;
+    }
+    input:checked + .c-slider {
+      background-color: @primary-color;
+      
+      &:before {
+        transform: translateX(@height - 8);
+        -moz-transform: translateX(@height - 8); /* Firefox 4 */
+        -webkit-transform: translateX(@height - 8); /* Safari 和 Chrome */
+        -o-transform: translateX(@height - 8); 	/* Opera */ 
+      }
+    }
+    input:disabled + .c-slider {
+      cursor: default;
+      background-color: @primary-color;
+      opacity: 0.5;
+
+    }
+    input:focus + .c-slider {
+      box-shadow: 0 0 5px @primary-color;
+    }
+  }
