@@ -47,12 +47,12 @@ Switch.propTypes = {
 Switch.defaultProps = {
     autoFocus: false,
     checked: false,
-    //checkedChildren: '',
+    checkedChildren: '',
     defaultChecked: false,
     disabled: false,
     loading: false,
     size: 'default', // default,small
-    //unCheckedChildren: <div></div>,
+    unCheckedChildren: '',
     onChange: () => {}
 }
 

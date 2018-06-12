@@ -16,7 +16,7 @@ class App extends Component {
    * @param {number} current 当前选中的index
    */
   beforeChange(current) {
-    console.log(current);
+    //console.log(current);
   }
 
   /**
@@ -25,7 +25,7 @@ class App extends Component {
    * @param {number} to 当前选中的index
    */
   afterChange(from, to) {
-    console.log(from, to);
+    //console.log(from, to);
   }
 
   render() {
@@ -34,7 +34,7 @@ class App extends Component {
         <Switch defaultChecked disabled={false} autoFocus checked={true} onChange={this.change} 
           checkedChildren="开" 
           unCheckedChildren="关"/>
-        <Carousel beforeChange={this.beforeChange} afterChange={this.afterChange}>
+        <Carousel beforeChange={this.beforeChange} afterChange={this.afterChange} autoPlay={false}>
           <div><h1>1</h1></div>
           <div><h1>2</h1></div>
           <div><h1>3</h1></div>
