@@ -1,13 +1,8 @@
 import React from 'react';
-import './Switch.less';
+import './index.less';
 import PropTypes from 'prop-types';
 
 class Switch extends React.Component {
-    
-   
-
-    
-    
     render() {
         const { defaultChecked, disabled, autoFocus, onChange, checkedChildren, unCheckedChildren} = this.props;
         return  (
@@ -44,8 +39,8 @@ Switch.propTypes = {
     checkedChildren: PropTypes.string,
     defaultChecked: PropTypes.bool,
     disabled: PropTypes.bool,
-    loading: PropTypes.bool,
-    size: PropTypes.string, // default,small
+    loading: PropTypes.bool, // 没好。。
+    size: PropTypes.string, // 没好。。default,small
     unCheckedChildren: PropTypes.string,
     onChange: PropTypes.func
 }
