@@ -1,0 +1,22 @@
+@fonthost: '../assets/fonts/';
+
+@font-face {
+    font-family: "icomoon";
+    src: url('../assets/fonts/icomoon.eot'); /* IE9*/
+    src: url('../assets/fonts/icomoon.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../assets/fonts/icomoon.woff') format('woff'), /* chrome, firefox */
+    url('../assets/fonts/icomoon.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('../assets/fonts/icomoon.svg#icomoon') format('svg')/* iOS 4.1- */
+}
+
+.icomoon,[class*="za-icon-"]:after, [class*="za-icon-"]:before, [class^=za-icon-]:after, [class^=za-icon-]:before {
+  font-family:"icomoon" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+}
+
+.za-icon-money:before {
+  content: "\e900";
+}

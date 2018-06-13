@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Switch from './components/Switch/index';
 import Carousel from './components/Carousel/index';
+import Rate from './components/Rate/index';
 
 class App extends Component {
   /**
@@ -47,6 +48,9 @@ class App extends Component {
             })
           }
         </Carousel>
+
+        <Rate character={<i className="za-icon-money"></i>} allowHalf={true} style={{ fontSize: 36 }} count={6} defaultValue={2.5} disabled={false} className="red"/>
+
       </div>
     );
   }

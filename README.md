@@ -87,7 +87,13 @@
     3、vertical: PropTypes.bool
 
 
+#### Rate组件
 
+* 设计思路
+
+    自定义hover事件，需要同时监听三个事件，onMouseEnter，onMouseMove, onMouseLeave。其中onMouseMove需要做节流处理，判断move是在同一个dom的时候，return。
+
+* 加transition: all .4s linear 使hover不那么生硬
 
 
 

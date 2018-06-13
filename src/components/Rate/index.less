@@ -1,0 +1,42 @@
+@import '../../common/style/common.less';
+@import '../../common/style/iconfont.less';
+
+
+@yellow : #fadb14;
+.active {
+    &.active {
+        color: @yellow;
+        transition: all .4s linear;
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
+}
+
+.cxc-rate {
+    ul {
+        list-style: none;
+        li {
+            display: inline-block;
+            margin-right: 8px;
+            color: @disable-color;
+            cursor: pointer;
+            position: relative;
+            .second {
+                position: absolute;
+                bottom: 0;
+                width: 50%;
+                overflow: hidden;
+                .active;
+            }
+            .first {
+                .active;
+            }
+            &.default {
+                cursor: default;
+            }
+        }
+    }
+}
+
+
