@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 class  Carousel extends React.Component{
     constructor(props) {
         super(props);
+        this.childrenLen = this.props.children.length;
+        
         this.state = {
-            trackWidth: '',
             slideWidth: '',
             curIndex: 0,
-            transform: 0
+            left: 0,
+            isTransition: true
         }
     }
     componentDidMount() {
@@ -19,10 +21,9 @@ class  Carousel extends React.Component{
 
     setWidth() {
         const width = this.refs.list.clientWidth;
-        const length = this.props.children.length;
         this.setState({
-            trackWidth: width * (length + 1),
-            slideWidth: width
+            slideWidth: width,
+            left: -width
         })
         
     }
@@ -40,19 +41,42 @@ class  Carousel extends React.Component{
     
     changeTab(newIndex) {
         this.props.beforeChange(newIndex);
-        const { curIndex } = this.state;
+        const { curIndex, slideWidth } = this.state;
+        const isLastToFirst = curIndex === this.childrenLen - 1 && newIndex === 0;
+        const isFirstToLast = curIndex === 0 && newIndex === this.childrenLen - 1;
         let left = '';
-        if (curIndex === 3 && newIndex === 0) {
-            // 从最后一页到第一页
-            left = parseInt(this.state.slideWidth * (curIndex + 1), 10) * -1;
-            
+        this.setState({
+            isTransition: true
+        })
+        if (isLastToFirst) {
+            // 从最后一页到第一页 
+            left = -slideWidth * (curIndex + 2);
+        }
+        else if (isFirstToLast) {
+            // 从第一页到最后一页
+            left = 0
         }
         else {
-            left = parseInt(this.state.slideWidth * newIndex, 10) * -1;
+            left = -slideWidth * (newIndex + 1);
         }
         this.setState({
-            transform: `${left}px`
+            left: `${left}px`
         },() => {
+            // 在滑动0.4s之后把transition动画关掉，把left设置成clone元素对应的初始元素
+            setTimeout(() => {
+                if (isLastToFirst) {
+                    this.setState({
+                        isTransition: false,
+                        left: -slideWidth
+                    });
+                }
+                else if (isFirstToLast) {
+                    this.setState({
+                        isTransition: false,
+                        left: this.childrenLen * -slideWidth
+                    });
+                }
+            },400)
             
             this.props.afterChange(curIndex, newIndex);
             this.setState({
@@ -62,13 +86,15 @@ class  Carousel extends React.Component{
         
     }
     render() {
-        const { trackWidth, slideWidth, curIndex, transform } = this.state;
-        console.log('transform...',transform);
+        const { slideWidth, curIndex, left, isTransition } = this.state;
         const { dots, children } = this.props;
         return (
             <div className="cxc-carousel">
                 <div className="slider-list" ref="list">
-                    <div className="slider-track" ref="track" style={{ width: trackWidth, left: transform}}>
+                    <div className={`slider-track ${isTransition ? 'transition' : ''}`} ref="track" style={{ width: slideWidth * (this.childrenLen + 2), left: left}}>
+                        <div style={{width: slideWidth }} className="slider-item slider-clone">
+                            {children[this.childrenLen - 1]}
+                        </div>
                         {
                             children.map((item, index) => {
                                 return (
