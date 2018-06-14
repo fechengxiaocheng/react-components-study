@@ -6,7 +6,7 @@
 
 * 加transition: all .4s linear 使hover不那么生硬；transform: scale(2) 使hover的dom放大。
 
-* 每个元素之间的间隙用padding不用marging，否则hover元素移动的时候中间margin会断层，导致视觉上的闪动；
+* 每个元素之间因为有margin，需要把mouse事件监听在ul上而不是li上(判断如果e.target是空时，return不作任何处理)，否则hover元素移动的时候中间margin会断层，导致视觉上的闪动；
 
 * 思考
 
