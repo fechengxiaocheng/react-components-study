@@ -13,16 +13,19 @@ class Rate extends React.Component{
     }
     
 
-    changeCharacter(e, index, type) {
+    changeCharacter(e, type) {
         const order = e.target.parentNode.getAttribute('data-order');
-        
-        if (this.props.disabled || (type === 'mouseMove' && order === this.state.order )) {
+        const index = +e.target.parentNode.parentNode.getAttribute('data-index');
+        if (this.props.disabled || 
+            (type === 'mouseMove' && order === this.state.order) || 
+            index === null || 
+            order === null) {
             return;
         }
-        console.log(order);
         const value = order === 'first' ? index + 1 : index + 0.5;
+
         if (this.props.allowClear && value === this.state.oldValue && type === 'click') {
-            console.log('allowClear');
+            
             this.setState({
                 value: 0,
                 oldValue: 0
@@ -54,21 +57,31 @@ class Rate extends React.Component{
     render() {
         const { allowHalf, count, character, style, disabled, className} = this.props;
         const { value } = this.state;
-
+        const isString = (typeof character === 'string');
         return (
             <div className="cxc-rate">
-                <ul onBlur={(e)=>this.leaveUl(e)}>
+                <ul 
+                onClick={(e) => this.changeCharacter(e,'click')} 
+                onMouseEnter={(e) => this.changeCharacter(e,'mouseEnter')} 
+                onMouseMove={(e) => this.changeCharacter(e,'mouseMove')} 
+                onMouseLeave={(e) => this.changeCharacter(e,'mouseLeave')}>
                     {
                         new Array(count).fill(1).map((item, index) => {
                             return (
-                                <li key={index} style={{...style}} 
-                                    className={`${className}${disabled ? ' default' : ''}`}
-                                    onClick={(e) => this.changeCharacter(e,index,'click')} 
-                                    onMouseEnter={(e) => this.changeCharacter(e,index,'mouseEnter')} 
-                                    onMouseMove={(e) => this.changeCharacter(e,index,'mouseMove')} 
-                                    onMouseLeave={(e) => this.changeCharacter(e,index,'mouseLeave')}>
-                                    <div data-order="first" className={`first${index < (allowHalf ? Math.floor(value) : value) ? ' active': ''}`} >{character}</div>
-                                    <div data-order="second" className={`second${index < Math.ceil(value) ? ' active': ''}`} >{character}</div>
+                                <li key={index} data-index={index} style={{...style}}  className={`${className}${disabled ? ' default' : ''}`}>
+                                    <div data-order="first" className={`first${index < (allowHalf ? Math.floor(value) : value) ? ' active': ''}`} >
+                                        {   isString ?
+                                            <span>{character}</span> :
+                                            character
+                                            
+                                        }
+                                    </div>
+                                    <div data-order="second" className={`second${index < Math.ceil(value) ? ' active': ''}`} >
+                                        {   isString ?
+                                            <span>{character}</span> :
+                                            character
+                                        }
+                                    </div>
                                 </li>
                             )
                         })
